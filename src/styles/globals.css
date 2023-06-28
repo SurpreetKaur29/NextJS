@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+}
+
+
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-fluid, body .numi_singleService .container, .single-services .moreAboutService .container {
+  max-width: 1752px !important;
+}
+.header {
+  background: linear-gradient( 180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%) !important;
+}
+.overlay {
+  background: linear-gradient(180deg, rgba(99, 67, 59, 0.6) 60%, rgb(0 0 0 / 67%) 100%);
+}
+.slick-dots li button:before {
+  content: "" !important;
+  background-color: #f09170;
+  height: 8px !important;
+  width: 52px !important;
+}
+.slick-dots li button, .slick-dots li{
+  height: 8px !important;
+  width: 52px !important;
+  margin: 0 8px !important;
+}
+.react-tabs__tab--selected {
+  background: white;
+  color: black;
+}
+.react-calendar__navigation {
+  line-height: 1.8em;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  margin-bottom: 20px;
+}
+.react-calendar__navigation__arrow {
+  font-size: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+.react-calendar__month-view__weekdays__weekday {
+  font-size: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+button.react-calendar__tile {
+  background: transparent;
+  border-radius: 50%;
+  padding: 9px 6px !important;
+  font-size: 16px;
+  text-align: center;
+  border: 0px solid #c5c5c5 !important;
+}
+.react-calendar__tile--rangeStart, .react-calendar__tile--active {
+  background: #414b5f !important;
+  color: #fff !important;
+}
+button.react-calendar__tile[disabled] {
+  opacity: .35;
+}
+img {
+  z-index: 1;
+}
