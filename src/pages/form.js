@@ -9,7 +9,6 @@ const Form = () => {
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(null);
   const [row, setRow] = useState([]);
-  const [activeRow, setActiveRow] = useState(null);
 
   // Input value
   const handleInput = (name, value) => {
@@ -61,24 +60,35 @@ const Form = () => {
   };
 
   // checkbox checked
-  const checkBoxChecked = (e) => {
-    const checked = e.target.checked;
-    if(checked){
-      console.log("checked")
+  const checkBoxChecked = (idx) => {
+    if (row.indexOf(idx) > -1) {
+      setRow(row.filter((r) => r !== idx));
     } else {
-      console.log("uncheck")
+      setRow([...row, idx]);
     }
-  }
+  };
+
+  console.log("row", row);
 
   // Select All
   const selectAll = () => {
     console.log("select all");
-  }
+    if (row.length === result.length) {
+      setRow([]);
+    } else {
+      const allIndexes = result.map((item, idx) => idx);
+      setRow(allIndexes);
+      console.log("allIndexes", allIndexes);
+    }
+  };
 
-  // Delete All
-  const deleteAll = () => {
+  // Delete Selected
+  const deleteSelected = () => {
     console.log("delete all");
-  }
+    const updatedResult = result.filter((item, idx) => !row.includes(idx));
+    setResult(updatedResult);
+    setRow([]);
+  };
 
   // Edit Data
   const editData = (item, idx) => {
@@ -134,8 +144,8 @@ const Form = () => {
               <th className="py-3 px-2 text-left flex gap-3 items-center">
                 Actions
                 <button
-                  className="bg-[gray] text-white py-2 px-4 rounded" 
-                  onClick={deleteAll}
+                  className="bg-[gray] text-white py-2 px-4 rounded"
+                  onClick={deleteSelected}
                 >
                   Delete Selected
                 </button>
@@ -145,7 +155,11 @@ const Form = () => {
               return (
                 <tr className="border-b border-[#d9d9d9] w-full" key={idx}>
                   <td className="py-3 px-2 w-[2%]">
-                    <input type="checkbox" onChange={checkBoxChecked} />
+                    <input
+                      type="checkbox"
+                      checked={row.includes(idx)}
+                      onChange={() => checkBoxChecked(idx)}
+                    />
                   </td>
                   <td className="py-3 px-2 w-[10%]">{idx + 1}.</td>
                   <td className="py-3 px-2 w-[25%]">{item.name}</td>
