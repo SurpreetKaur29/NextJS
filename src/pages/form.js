@@ -9,6 +9,7 @@ const Form = () => {
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(null);
   const [row, setRow] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   // Input value
   const handleInput = (name, value) => {
@@ -43,7 +44,7 @@ const Form = () => {
         setActive(null);
         console.log("active", active);
       } else {
-        setResult([...result, input]);
+        setResult([input, ...result]);
         console.log("result", result);
       }
       setInput({
@@ -63,8 +64,10 @@ const Form = () => {
   const checkBoxChecked = (idx) => {
     if (row.indexOf(idx) > -1) {
       setRow(row.filter((r) => r !== idx));
+      document.getElementById("deleteButton").style.backgroundColor = "gray";
     } else {
       setRow([...row, idx]);
+      document.getElementById("deleteButton").style.backgroundColor = "red";
     }
   };
 
@@ -75,10 +78,14 @@ const Form = () => {
     console.log("select all");
     if (row.length === result.length) {
       setRow([]);
+      document.getElementById("deleteButton").style.backgroundColor = "gray";
+      setIsChecked(false);
     } else {
       const allIndexes = result.map((item, idx) => idx);
       setRow(allIndexes);
       console.log("allIndexes", allIndexes);
+      document.getElementById("deleteButton").style.backgroundColor = "red";
+      setIsChecked(true);
     }
   };
 
@@ -88,8 +95,10 @@ const Form = () => {
     const updatedResult = result.filter((item, idx) => !row.includes(idx));
     setResult(updatedResult);
     setRow([]);
+    setIsChecked(false);
+    document.getElementById("deleteButton").style.backgroundColor = "gray";
   };
-
+  
   // Edit Data
   const editData = (item, idx) => {
     console.log("edit");
@@ -136,7 +145,7 @@ const Form = () => {
           <tbody>
             <tr className="bg-[#dfdfdf]">
               <th className="py-3 px-2 text-left w-[2%]">
-                <input type="checkbox" onChange={selectAll} />
+                <input type="checkbox" onChange={selectAll} checked={isChecked} />
               </th>
               <th className="py-3 px-2 text-left w-[10%]">Sr. No.</th>
               <th className="py-3 px-2 text-left w-[25%]">Name</th>
@@ -144,7 +153,7 @@ const Form = () => {
               <th className="py-3 px-2 text-left flex gap-3 items-center">
                 Actions
                 <button
-                  className="bg-[gray] text-white py-2 px-4 rounded"
+                  className="bg-[gray] text-white py-2 px-4 rounded" id="deleteButton"
                   onClick={deleteSelected}
                 >
                   Delete Selected
