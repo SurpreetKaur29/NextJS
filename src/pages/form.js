@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 const Form = () => {
   const [input, setInput] = useState({
@@ -10,6 +11,7 @@ const Form = () => {
   const [active, setActive] = useState(null);
   const [row, setRow] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
   // Input value
   const handleInput = (name, value) => {
@@ -98,7 +100,7 @@ const Form = () => {
     setIsChecked(false);
     document.getElementById("deleteButton").style.backgroundColor = "gray";
   };
-  
+
   // Edit Data
   const editData = (item, idx) => {
     console.log("edit");
@@ -143,9 +145,27 @@ const Form = () => {
       <div className="shadow-2xl w-[800px]">
         <table className="w-full">
           <tbody>
+            <tr>
+              <th colSpan={5} className="px-2 text-right">
+                <label className="block my-2 px-5">
+                  <input
+                    className="shadow-lg border border-[#b2b2b2] w-[350px] p-3 mb-5 focus:outline-none"
+                    type="text"
+                    name="search"
+                    placeholder="Search Here..."
+                    onChange={(e) => setSearchKey(e.target.value)}
+                    value={searchKey}
+                  />
+                </label>
+              </th>
+            </tr>
             <tr className="bg-[#dfdfdf]">
               <th className="py-3 px-2 text-left w-[2%]">
-                <input type="checkbox" onChange={selectAll} checked={isChecked} />
+                <input
+                  type="checkbox"
+                  onChange={selectAll}
+                  checked={isChecked}
+                />
               </th>
               <th className="py-3 px-2 text-left w-[10%]">Sr. No.</th>
               <th className="py-3 px-2 text-left w-[25%]">Name</th>
@@ -153,14 +173,20 @@ const Form = () => {
               <th className="py-3 px-2 text-left flex gap-3 items-center">
                 Actions
                 <button
-                  className="bg-[gray] text-white py-2 px-4 rounded" id="deleteButton"
+                  className="bg-[gray] text-white py-2 px-4 rounded"
+                  id="deleteButton"
                   onClick={deleteSelected}
                 >
                   Delete Selected
                 </button>
               </th>
             </tr>
-            {result.map((item, idx) => {
+            {(searchKey
+              ? result.filter((ke) =>
+                  ke.name.toLowerCase().includes(searchKey.toLowerCase())
+                )
+              : result
+            ).map((item, idx) => {
               return (
                 <tr className="border-b border-[#d9d9d9] w-full" key={idx}>
                   <td className="py-3 px-2 w-[2%]">
@@ -173,17 +199,19 @@ const Form = () => {
                   <td className="py-3 px-2 w-[10%]">{idx + 1}.</td>
                   <td className="py-3 px-2 w-[25%]">{item.name}</td>
                   <td className="py-3 px-2 w-[25%]">{item.email}</td>
-                  <td className="py-3 px-2 w-[38%]">
+                  <td className="py-3 px-2 w-[38%] flex items-center">
                     <button
-                      className="bg-[green] text-white py-2 px-6 rounded mr-2"
+                      className="bg-[green] text-white py-2 pr-6 pl-5 rounded flex items-center gap-1 mr-2"
                       onClick={() => editData(item, idx)}
                     >
+                      <AiOutlineEdit fontSize={22} />
                       Edit
                     </button>
                     <button
-                      className="bg-[red] text-white py-2 px-4 rounded"
+                      className="bg-[red] text-white py-2 px-4 rounded flex items-center gap-1"
                       onClick={() => deleteData(idx)}
                     >
+                      <AiOutlineDelete fontSize={22} />
                       Delete
                     </button>
                   </td>
