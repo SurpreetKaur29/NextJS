@@ -190,7 +190,7 @@ const Form = () => {
               return (
                 <tr className="border-b border-[#d9d9d9] w-full" key={idx}>
                   <td className="py-3 px-2 w-[2%]">
-                    <input
+                    <input  
                       type="checkbox"
                       checked={row.includes(idx)}
                       onChange={() => checkBoxChecked(idx)}
