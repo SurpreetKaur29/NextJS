@@ -1,55 +1,45 @@
 import { useState } from "react";
 
-export default function EvenOddPrime() {
+export default function EvenOddPrimeList() {
   const [input, setInput] = useState(0);
 
-  const handleSubmit = (e) => {
-    setInput(e.target.value);
+  const handleChange = (e) => {
+    setInput(parseInt(e.target.value));
   };
 
-  const result = [];
   const evenNumber = [];
   const oddNumber = [];
+  const primeNumber = [];
 
-  for (var i = 2; i < input; i++) {
-    if(input % i === 0){
-      
-    }
+  if (input && input === 1) {
+    oddNumber.push(1);
+  }
+  for (var i = 2; i <= input; i++) {
+    let isPrime = true;
     if (i % 2 === 0) {
       evenNumber.push(i);
     } else {
       oddNumber.push(i);
     }
-  }
-  console.log("result", result);
-  console.log("evenNumber", evenNumber);
-  console.log("oddNumber", oddNumber);
-
-  var primeNumber = [];
-  var primeList = result.map((item) => {
-    var isPrime = true;
-    for (var x = 2; x <= Math.sqrt(item); x++) {
-      if (item % x === 0) {
+    for (var x = 2; x < i; x++) {
+      if (i % x === 0) {
         isPrime = false;
+        break;
       }
     }
-
     if (isPrime) {
-      if (item > 1) {
-        primeNumber.push(item);
-        console.log("primeNumber", primeNumber);
-        console.log("Prime", item);
-      }
-    } else {
-      console.log("Not Prime", item);
+      primeNumber.push(i);
     }
-  });
+  }
+  console.log("primeNumber", primeNumber)
+
   return (
     <>
       <div className="p-40">
         <input
           type="number"
-          onChange={(e) => handleSubmit(e)}
+          onChange={(e) => handleChange(e)}
+          max="500"
           value={input}
           className="bg-grey h-10 w-[500px] mb-10 p-5"
         />
