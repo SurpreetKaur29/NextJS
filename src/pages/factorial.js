@@ -1,6 +1,12 @@
 export default function factorial() {
-  const arr = [1, 5, 4, 3, 6];
-  
+  const fact = (num) => {
+    var result = 1;
+    for(var i = 1; i <= num; i++){
+      result *= i;
+    }
+    return result;
+  }
+  console.log("fact", fact(5));
 
   return <></>;
 }
