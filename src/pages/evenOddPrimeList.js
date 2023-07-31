@@ -40,20 +40,20 @@ export default function EvenOddPrimeList() {
           type="number"
           onChange={(e) => handleChange(e)}
           max="500"
-          value={input}
+          value={input ? input : 0}
           className="bg-grey h-10 w-[500px] mb-10 p-5"
-        />
+        /> 
         <div className="flex gap-5">
           <div className="w-1/3">
-            <h2>Even Numbers</h2>
+            <h2>Even Numbers ({evenNumber.length})</h2>
             <ul>
               {evenNumber.map((item, idx) => (
-                <li key={idx}>{item}</li>
+                <li key={idx}>{item}</li>      
               ))}
             </ul>
           </div>
           <div className="w-1/3">
-            <h2>Odd Numbers</h2>
+            <h2>Odd Numbers ({oddNumber.length})</h2>
             <ul>
               {oddNumber.map((item, idx) => (
                 <li key={idx}>{item}</li>
@@ -61,7 +61,7 @@ export default function EvenOddPrimeList() {
             </ul>
           </div>
           <div className="w-1/3">
-            <h2>Prime Numbers</h2>
+            <h2>Prime Numbers ({primeNumber.length})</h2>
             <ul>
               {primeNumber.map((item, idx) => (
                 <li key={idx}>{item}</li>
